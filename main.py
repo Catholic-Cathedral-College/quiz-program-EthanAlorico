@@ -4,16 +4,26 @@ def new_game():
   correct_guesses = 1
   question_num = 1
 
-  for key in questions:
+  for key in question:
     print("----------------------------------------------------------------------------")
     print(key)
     for i in options[question_num-1]:
       print(i)
-      question_num += 1
+      guess = input("Enter (A,B,C or D)")
+      guess = guess.upper()
+      guesses.append(guess)
 
+     check_answer(question.get(key),guess)
+      question_num += 1
   
-def check_answer():
-  pass
+  
+def check_answer(answer,guess):
+  if answer == guess:
+    print("correct!")
+    return 1
+  else:
+    print("wrong!")
+    return 0
   
 def display_score():
   pass
@@ -21,7 +31,7 @@ def display_score():
 def play_again():
   pass
 
-questions = {
+question = {
   "what is the capital of australia?: ": "B",
     "Where is Mount Fuji located?: ": "C",
     "How many bones in the human body?: ": "B",
