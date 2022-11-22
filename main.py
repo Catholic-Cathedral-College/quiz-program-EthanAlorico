@@ -1,51 +1,99 @@
-print("Welcome to the Common knowledge quiz")
 
-playing = input("This Quiz has 10 questions which needs common knowledge of English, Science and geography are you ready to take the quiz?")
+# -------------------------
+#function for making a new quiz game 
+def new_game():
 
-if playing != "yes":
-  quit()
+    guesses = []
+    correct_guesses = 0
+    question_num = 1
 
-print("The Quiz will now start")
+    for key in questions:
+        print("-------------------------")
+        print(key)
+        for i in options[question_num-1]:
+            print(i)
+        guess = input("Enter (A, B, C, or D): ")
+        guess = guess.upper()
+        guesses.append(guess)
 
-answer = input("Question 1) What is the Capital city of australia?")
-if answer == "Canberra":
-  print("Correct")
+        correct_guesses += check_answer(questions.get(key), guess)
+        question_num += 1
 
-else: print("Incorrect, the correct answer is Canberra")
+    display_score(correct_guesses, guesses)
 
-answer = input("Question 2) In what Country is the Mountain Mt.Fuji Located?")
-if answer == "Japan":
-  print("Correct")
+# -------------------------
+  # function that notifies the player if they got the question right and also keeps track of the score
+def check_answer(answer, guess):
 
-else: print("Incorrect, the correct answer is Japan")
+    if answer == guess:
+        print("Correct answer!")
+        return 1
+    else:
+        print("Incorrect answer!")
+        return 0
 
-answer = input("Question 3) How many Bones are in a human body?")
-if answer == "206":
-  print("Correct")
+# -------------------------
+      # Function for displaying score , what answers they picked and the percent of how much questions they got right
+def display_score(correct_guesses, guesses):
+    print("-------------------------")
+    print("RESULTS")
+    print("-------------------------")
 
-else: print("Incorrect, the correct amount is 206")
+    print("Answers: ", end="")
+    for i in questions:
+        print(questions.get(i), end=" ")
+    print()
 
-answer = input("Question 4) What Shape is the Earth?")
-if answer == "Sphere":
-  print("Correct")
+    print("Guesses: ", end="")
+    for i in guesses:
+        print(i, end=" ")
+    print()
 
-else: print("Incorrect, The correct answer is Sphere")
+    score = int((correct_guesses/len(questions))*100)
+    print("Your score is: "+str(score)+"%")
 
-answer = input("Question 5) How many days are there in a year?")
-if answer == "365":
-  print("Correct")
+# -------------------------
+  #Function so the player can have the option to play again
+def play_again():
 
-else: print("Incorrect, the correct answer is 365")
+    response = input("Would you like to retry the quiz? (Answer with yes or no): ")
+    response = response.upper()
 
-answer = input("Question 6) What is the Elements Sodium and Chlorine combine to make?")
-if answer == "Salt":
-  print("Correct")
+    if response == "YES":
+        return True
+    else:
+        return False
+# -------------------------
 
-else: print("Incorrect, the correct answer is Salt")
+# Dictionary for the questions
+questions = {
+ "Q1.What is the capital city of australia?: ": "B",
+ "Q2.Where is the mountain mt.fuji located?: ": "C",
+ "Q3.How many bones in the human body?: ": "B",
+ "Q4.What shape is the earth?: ": "A", 
+ "Q5.how many days are there in a year": "D",
+ "Q6.What do the elements Sodium and Chlorine combine to make?": "B",
+ "Q7.Which one of these letters is not a vowel?": "C",
+ "Q8.What is the smallest country?": "C",
+ "Q9.What does the symbol H in H^2O Mean?": "C"
+}
+# Dictionary for the Answers
+options = [["A. Adelaide", "B. Canberra", "C. Melbourne", "D. Sydney"],
+          ["A. Fiji", "B. Australia", "C. Japan", "D. America"],
+          ["A. 2", "B. 206", "C. 1023", "D. 34"],
+          ["A. Sphere","B. Square", "C. pyramid", "D. flat"],
+          ["A.355", "B.375", "C.364", "D.365"],
+          ["A.Water", "B.Salt", "C.Pottasium", "D.Chlorine"],
+          ["A.I", "B.O", "C.L", "D.U"],
+          ["A.Russia","B.Libya,","C.Vatican City","D.New Zealand"],
+          ["A.Helium","B.Healium","C.Hydrogen","D.Hylogen"]
+          ]
 
-answer = input("Question 7) What is the Smalest Country?")
-if answer == "Vatican City":
-  print("Correct")
+new_game()
 
-else: print("Incorrect the correct answer is Vatican City")
+while play_again():
+    new_game()
+
+print("Thank you for playing the Quiz!")
+
 
